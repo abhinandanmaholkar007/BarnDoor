@@ -25,4 +25,9 @@ Feature: Barn and Horses module
     Then Clicks on the barn and horse icon and search horse "Badal"
     Then Searched horse should be populated
 
+  Scenario: Add horse activities
+    When user login with valid credential userName as "abhi@yopmail.com" and password "Abhi@007"
+    Then Clicks on the barn and horse icon and go to activity
+    Then create different activities like shoeing, vaccinations, Worming and dental
+
 

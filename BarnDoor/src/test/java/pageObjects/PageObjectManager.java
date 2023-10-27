@@ -9,6 +9,7 @@ public class PageObjectManager {
     AddNewPasture addNewPasture;
     AddNewHorse addNewHorse;
     SearchHorse searchHorse;
+    AddHorseActivities addHorseActivities;
     public PageObjectManager(WebDriver driver)
     {
         this.driver=driver;
@@ -42,6 +43,12 @@ public class PageObjectManager {
     {
         this.searchHorse=new SearchHorse(driver);
         return searchHorse;
+    }
+
+    public  AddHorseActivities getHorseActivities()
+    {
+        this.addHorseActivities=new AddHorseActivities(driver);
+        return addHorseActivities;
     }
 
 

@@ -26,9 +26,13 @@ public class AddNewPasture {
 
 
 
-    public String clickOnPasture (String pastureName) throws InterruptedException {
+    public String clickOnPasture (String pastureName)  {
         genericUtils.openSideMenu(menu,barnForm);
-        Thread.sleep(5000);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (driver.getCurrentUrl().contains("barns"))
         {
             driver.findElement(addNewBarnButton).click();

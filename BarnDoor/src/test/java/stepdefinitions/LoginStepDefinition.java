@@ -20,8 +20,12 @@ public class LoginStepDefinition {
 
 
     @Given("the user is on the login page")
-    public void the_user_is_on_the_login_page() throws IOException {
-        testContextSetUp.testBase.WebDriverManager();
+    public void the_user_is_on_the_login_page()  {
+        try {
+            testContextSetUp.testBase.WebDriverManager();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @When ("user login with valid credential userName as {string} and password {string}")
