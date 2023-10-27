@@ -27,6 +27,11 @@ public class GenericUtils {
     public void openSideMenu(By menu,By barnForm )
     {
         element= waitVisibilityElement(menu, 10);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         actions=new Actions(driver);
         actions.moveToElement(element).perform();
         element.findElement(barnForm).click();

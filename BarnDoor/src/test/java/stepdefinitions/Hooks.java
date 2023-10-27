@@ -19,16 +19,30 @@ public class Hooks {
     }
 
     @After
-    public void afterScenario() throws IOException {
-         testContextSetUp.testBase.WebDriverManager().quit();
+    public void afterScenario()  {
+        try {
+            testContextSetUp.testBase.WebDriverManager().quit();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
     @AfterStep
-    public void addScreenShots(Scenario scenario) throws IOException {
-        WebDriver driver=testContextSetUp.testBase.WebDriverManager();
+    public void addScreenShots(Scenario scenario)  {
+        WebDriver driver= null;
+        try {
+            driver = testContextSetUp.testBase.WebDriverManager();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (scenario.isFailed())
         {
             File source=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-            byte[] fileContent=FileUtils.readFileToByteArray(source);
+            byte[] fileContent= new byte[0];
+            try {
+                fileContent = FileUtils.readFileToByteArray(source);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             scenario.attach(fileContent,"image/png","image");
 
         }

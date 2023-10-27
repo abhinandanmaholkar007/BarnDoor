@@ -14,8 +14,12 @@ public class AddNewHorseStepDefinition {
     }
 
     @Then("Clicks on the barn and horse icon and add horse {string}")
-    public void Clicks_on_the_barn_and_horse_icon_and_add_horse(String horseName) throws InterruptedException {
-      addNewHorse.addHorse(horseName);
+    public void Clicks_on_the_barn_and_horse_icon_and_add_horse(String horseName) {
+        try {
+            addNewHorse.addHorse(horseName);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

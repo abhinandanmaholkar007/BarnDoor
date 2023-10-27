@@ -25,10 +25,14 @@ public class AddNewBarn {
         this.genericUtils = new GenericUtils(driver);
     }
 
-    public void addBarnDetails(String barnName, String stallsNumber) throws InterruptedException {
+    public void addBarnDetails(String barnName, String stallsNumber)  {
         {
             genericUtils.openSideMenu(menu, barnForm);
-            Thread.sleep(5000);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             if (driver.getCurrentUrl().contains("barns")) {
                 driver.findElement(addNewBarnButton).click();
 

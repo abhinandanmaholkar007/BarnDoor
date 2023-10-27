@@ -21,7 +21,7 @@ public class AddNewHorse {
 
     public void addHorse(String horseName) throws InterruptedException {
         genericUtils.openSideMenu(menu,barnForm);
-      //  GenericUtils.waitVisibilityElement(addHorse,10);
+        GenericUtils.waitVisibilityElement(addHorse,10);
         Thread.sleep(4000);
         driver.findElement(addHorse).click();
         Thread.sleep(4000);
