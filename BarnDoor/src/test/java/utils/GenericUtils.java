@@ -1,8 +1,6 @@
 package utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -14,39 +12,51 @@ public class GenericUtils {
       static WebDriverWait wait;
       WebElement element;
     Actions actions;
+    JavascriptExecutor executor;
 
     public GenericUtils(WebDriver driver) {
         this.driver = driver;
     }
 
-    public static WebElement waitVisibilityElement(By locator, int time) {
+    public static void waitVisibilityElement(WebElement locator, int time) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(time));
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
-    public void openSideMenu(By menu,By barnForm )
+    public void openSideMenu(WebElement menu,WebElement barnForm )
     {
-        element= waitVisibilityElement(menu, 10);
+        waitVisibilityElement(menu, 10);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         actions=new Actions(driver);
-        actions.moveToElement(element).perform();
-        element.findElement(barnForm).click();
+        actions.moveToElement(menu).perform();
+        actions.click(barnForm).perform();
+
     }
-    public void clickOnSaveBtn(By saveBtn) {
-        driver.findElement(saveBtn).click();
+    public void clickOnSaveBtn(WebElement saveBtn) {
+       //saveBtn.click();
+        executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", saveBtn);
     }
 
-    public String successAndErrorMsg(By confirmationMsg)  {
+    public String successAndErrorMsg(WebElement confirmationMsg)  {
         GenericUtils.waitVisibilityElement(confirmationMsg,10);
-        if (driver.findElement(confirmationMsg).getText().contains("error")) {
-            return driver.findElement(confirmationMsg).getText();
+        if (confirmationMsg.getText().contains("error")) {
+            return confirmationMsg.getText();
         }
-        return driver.findElement(confirmationMsg).getText();
+        return confirmationMsg.getText();
 }
+
+    public void switchToAlert()
+    {
+      Alert alert=driver.switchTo().alert();
+        System.out.println(alert.getText());
+        alert.accept();
+
+    }
 
 }
 

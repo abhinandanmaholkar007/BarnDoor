@@ -18,26 +18,25 @@ public class Hooks {
         this.testContextSetUp=testContextSetUp;
     }
 
+    /*
+    * afterScenario method quit(close) the browser after running every scenario.
+     */
     @After
     public void afterScenario()  {
-        try {
-            testContextSetUp.testBase.WebDriverManager().quit();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        testContextSetUp.testBase.WebDriverManager().quit();
     }
+
+    /*
+    * addScreenShots method takes the screenshot if any script gets failed
+     */
     @AfterStep
     public void addScreenShots(Scenario scenario)  {
-        WebDriver driver= null;
-        try {
-            driver = testContextSetUp.testBase.WebDriverManager();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        WebDriver driver;
+        driver = testContextSetUp.testBase.WebDriverManager();
         if (scenario.isFailed())
         {
             File source=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-            byte[] fileContent= new byte[0];
+            byte[] fileContent;
             try {
                 fileContent = FileUtils.readFileToByteArray(source);
             } catch (IOException e) {

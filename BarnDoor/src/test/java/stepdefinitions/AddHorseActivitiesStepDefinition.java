@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import pageObjects.AddHorseActivities;
 import utils.TestContextSetUp;
@@ -18,9 +19,9 @@ public class AddHorseActivitiesStepDefinition {
         addHorseActivities.goToActivitiesScreen();
     }
 
-    @Then("create different activities like shoeing, vaccinations, Worming and dental")
-    public void create_different_activities()  {
-       addHorseActivities.addShoeing();
+    @Then("create shoeing activity by entering Shoeing Date as {string} and Repeat Shoeing Activity as {string}")
+    public void create_different_activities(String ShoeingDate,String RepeatShoeingActivity)  {
+       addHorseActivities.addShoeing(ShoeingDate,RepeatShoeingActivity);
     }
 
 
