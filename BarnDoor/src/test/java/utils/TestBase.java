@@ -4,16 +4,26 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
 public class TestBase {
     public WebDriver driver;
-    public WebDriver WebDriverManager() throws IOException {
-        FileInputStream fis=new FileInputStream(System.getProperty("user.dir")+"//src//test//java//resources//Global.properties");
+    public WebDriver WebDriverManager()  {
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(System.getProperty("user.dir")+"//src//test//java//resources//Global.properties");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         Properties pro=new Properties();
-        pro.load(fis);
+        try {
+            pro.load(fis);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String barnUrl= pro.getProperty("url");
         String browser=pro.getProperty("browser");
         if(driver==null)

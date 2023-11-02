@@ -14,11 +14,7 @@ public class SearchHorseStepDefinition {
 
     @Then("Clicks on the barn and horse icon and search horse {string}")
     public void Clicks_on_the_barn_and_horse_icon_and_search_horse(String searchedHorse)  {
-        try {
-            searchHorse.searchHorseWithName(searchedHorse);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        searchHorse.searchHorseWithName(searchedHorse);
     }
 
     @Then("Searched horse should be populated")
